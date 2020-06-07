@@ -1,8 +1,38 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
-a {
-  color: #00B7FF;
+body{
+  background: #EEE;
+}
+body, input{
+  font-family: "Open Sans", sans-serif;
+  font-size: 1em;
+}
+h1{
+  font-family: "Open Sans", sans-serif;
+}
+.item{
+  width: 60px;
+  vertical-align: middle;
+  margin-right: 15px;
+}
+.button:hover{
+  background: #33B5E5;
+}
+.checkout{
+  margin: 0 auto;
+  width: 350px;
+}
+.addr input{
+  width: 100%;
+  outline: none;
+  border: 0px solid;
+  padding: 5px;
+}
+#button{
+  padding: 4px;
+  color: black;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px 5px;
 }
