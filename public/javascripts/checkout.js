@@ -96,10 +96,15 @@ var checkoutConfig = {
               $form.append('<input type="hidden" name="txnId" value="' + details.txnId + '" />');
               $("body").append($form);
               $form.submit();
+
+              return true;
+
             } else if ( details.details[0].issue === 'INSTRUMENT_DECLINED' ) {
 
+              alert(details.details[0].description);
               // without txn id, subject to error
               return actions.restart();
+
             }
           });
       }

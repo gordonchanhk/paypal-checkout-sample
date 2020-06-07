@@ -58,7 +58,7 @@ exports.capture = function(req, res) {
 		.then(function(data) {
 
 			if ( typeof data.txnId === 'undefined' ) {
-				res.status(500);
+				res.status(400);
 				return res.end( data.message );
 			} else {
 				res.end(JSON.stringify({ txnId: data.txnId }));
