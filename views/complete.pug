@@ -1,0 +1,14 @@
+extends layout
+
+block headerscripts
+	script(src='https://www.paypal.com/sdk/js?client-id=AbH1wK350KsM50wu8XfzvbnN2B3Sn4PjCzzJGEA3-wIaG7zSbgNgyphVPdW0p1luiJR1XRr5yCQmeL0S&currency=USD&intent=capture&commit=false')
+
+block content
+	div(class='checkout')
+		h1='Checkout Completed'
+		p='You have purchased:'
+		p
+			img(class='item', title'Image of Cover', src='https://i.imgur.com/knxv5oN.jpg')
+			='The PayPal Wars for USD $65.00'
+		p='Order placed successfully, PayPal Transaction ID: '
+			b(id="txnId") #{ txnId }
