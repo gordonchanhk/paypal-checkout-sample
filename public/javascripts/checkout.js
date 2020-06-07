@@ -84,7 +84,15 @@ var checkoutConfig = {
           }).then(function(res) {
             return res.json();
           }).then(function(details) {
-            return actions.restart();
+
+            // setup form post to avoid transaction id in URL
+            var $form = $("<form />");
+            $form.attr("action",'/complete');
+            $form.attr("method",'POST');
+            $form.append('<input type="hidden" name="txnId" value="' + details.txnId + '" />');
+            $("body").append($form);
+            $form.submit();
+
           });
       }
     }).render('#button');
