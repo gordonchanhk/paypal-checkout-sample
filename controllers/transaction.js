@@ -42,4 +42,18 @@ exports.capture = function(req, res) {
 
 	let captureResponse = captureOrder(req.body.orderID, req.body.mockError);
 
+	let txnId = '';
+
+	captureResponse
+		.then(function(data) {
+
+			if ( typeof data.txnId === 'undefined' ) {
+				res.status(500);
+				return res.end( data.message );
+			} else {
+				res.end(JSON.stringify({ txnId: data.txnId }));
+			}
+
+		});
+
 };
