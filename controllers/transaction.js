@@ -6,7 +6,7 @@ let environment = new paypal.core.SandboxEnvironment(clientId, clientSecret);
 let client = new paypal.core.PayPalHttpClient(environment);
 
 
-let captureOrder =  async function(orderId) {
+let captureOrder =  async function(orderId, mockError) {
 	console.log("orderId: " + orderId);
   request = new paypal.orders.OrdersCaptureRequest(orderId);
 
@@ -40,6 +40,6 @@ let captureOrder =  async function(orderId) {
 
 exports.capture = function(req, res) {
 
-	let captureResponse = captureOrder(req.body.orderID);
+	let captureResponse = captureOrder(req.body.orderID, req.body.mockError);
 
 };
