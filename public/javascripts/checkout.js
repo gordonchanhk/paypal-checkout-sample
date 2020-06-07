@@ -36,8 +36,24 @@ var checkoutConfig = {
 (function($) {
 
   function init() {
+    updateViewAddr();
+
+    checkoutButtonSetup();
+  }
+
+  function checkoutButtonSetup() {
 
   }
+
+  function updateViewAddr() {
+    // update address
+    document.getElementById('addrVal').innerHTML =
+      checkoutConfig.shipping.address1 + '<br />' +
+      checkoutConfig.shipping.address2 + '<br />' +
+      checkoutConfig.shipping.postalCode + '<br />' +
+      checkoutConfig.shipping.countryName;
+  }
+
 
   $(document).ready(init);
 
