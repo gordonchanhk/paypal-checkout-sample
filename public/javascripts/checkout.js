@@ -74,6 +74,9 @@ var checkoutConfig = {
         });
       },
       onApprove: function(data, actions) {
+
+        data.mockError = $('#mockError:checked').val();
+
         return fetch('/checkout/capture', {
             method: 'POST',
             cache: 'no-cache',
@@ -85,14 +88,19 @@ var checkoutConfig = {
             return res.json();
           }).then(function(details) {
 
-            // setup form post to avoid transaction id in URL
-            var $form = $("<form />");
-            $form.attr("action",'/complete');
-            $form.attr("method",'POST');
-            $form.append('<input type="hidden" name="txnId" value="' + details.txnId + '" />');
-            $("body").append($form);
-            $form.submit();
+            if ( typeof details.txnId !== 'undefined' ) {
+              // setup form post to avoid transaction id in URL
+              var $form = $("<form />");
+              $form.attr("action",'/complete');
+              $form.attr("method",'POST');
+              $form.append('<input type="hidden" name="txnId" value="' + details.txnId + '" />');
+              $("body").append($form);
+              $form.submit();
+            } else {
 
+              // without txn id, subject to error
+              return actions.restart();
+            }
           });
       }
     }).render('#button');
