@@ -72,6 +72,20 @@ var checkoutConfig = {
             }
           }]
         });
+      },
+      onApprove: function(data, actions) {
+        return fetch('/checkout/capture', {
+            method: 'POST',
+            cache: 'no-cache',
+            headers: {
+              'content-type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          }).then(function(res) {
+            return res.json();
+          }).then(function(details) {
+            return actions.restart();
+          });
       }
     }).render('#button');
   }
