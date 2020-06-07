@@ -29,6 +29,8 @@ let captureOrder =  async function(orderId, mockError) {
 	  let captureResult = captureResponse.result;
 	  let txnId = '';
 
+	  console.log(`${JSON.stringify(captureResult)}`);
+
 	  for(var i=0; i<captureResult.purchase_units.length; i++){
 			for(var j=0; j<captureResult.purchase_units[i].payments.captures.length; j++){
 
