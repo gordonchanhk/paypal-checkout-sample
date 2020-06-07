@@ -42,7 +42,38 @@ var checkoutConfig = {
   }
 
   function checkoutButtonSetup() {
-
+    // paypal button setup
+    paypal.Buttons({
+      createOrder: function(data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            "shipping": {
+              "address": {
+                "address_line_1": checkoutConfig.shipping.address1,
+                "address_line_2": checkoutConfig.shipping.address2,
+                "admin_area_1": checkoutConfig.shipping.countryName,
+                "postal_code": checkoutConfig.shipping.postalCode,
+                "country_code": checkoutConfig.shipping.countryCode
+              }
+            },
+            "items": [
+              {
+                "name": checkoutConfig.items[0].name,
+                "description": checkoutConfig.items[0].description,
+                "unit_amount": {value: checkoutConfig.items[0].price, currency_code: checkoutConfig.items[0].currency},
+                "quantity": checkoutConfig.items[0].quantity
+              }
+            ],
+            "amount": {
+              value: checkoutConfig.order.total,
+              breakdown: {
+                item_total: {value: checkoutConfig.order.total, currency_code: checkoutConfig.order.currency}
+              }
+            }
+          }]
+        });
+      }
+    }).render('#button');
   }
 
   function updateViewAddr() {
