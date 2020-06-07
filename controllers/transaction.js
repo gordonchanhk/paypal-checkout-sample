@@ -8,16 +8,26 @@ let client = new paypal.core.PayPalHttpClient(environment);
 
 let captureOrder =  async function(orderId, mockError) {
 	console.log("orderId: " + orderId);
-  request = new paypal.orders.OrdersCaptureRequest(orderId);
 
   let captureResponse;
 
+  //request = new paypal.orders.OrdersCaptureRequest(orderId);
+  var captureReq = {
+	  path: '/v2/checkout/orders/' + orderId + '/capture?',
+	  verb: 'POST',
+	  body: { intent: 'INVALID' },
+	  headers:
+	   { 'Content-Type': 'application/json' }
+	};
+
+	if ( mockError === 'true' ) {
+  	captureReq.headers['PayPal-Mock-Response'] = '{"mock_application_codes":"INSTRUMENT_DECLINED"}';
+  }
+
   try {
-		captureResponse = await client.execute(request);
+		captureResponse = await client.execute(captureReq);
 	  let captureResult = captureResponse.result;
 	  let txnId = '';
-
-	  console.log(`${JSON.stringify(captureResult)}`);
 
 	  for(var i=0; i<captureResult.purchase_units.length; i++){
 			for(var j=0; j<captureResult.purchase_units[i].payments.captures.length; j++){
