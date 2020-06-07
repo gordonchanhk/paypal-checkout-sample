@@ -96,7 +96,7 @@ var checkoutConfig = {
               $form.append('<input type="hidden" name="txnId" value="' + details.txnId + '" />');
               $("body").append($form);
               $form.submit();
-            } else {
+            } else if ( details.details[0].issue === 'INSTRUMENT_DECLINED' ) {
 
               // without txn id, subject to error
               return actions.restart();
